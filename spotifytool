@@ -1,0 +1,69 @@
+#!/usr/bin/env python
+#-*- coding: utf-8 -*-
+import sys
+import argparse
+import textwrap
+
+from spotifytool_pkg import cmd_backup
+from spotifytool_pkg import cmd_list_playlists
+from spotifytool_pkg import cmd_list_tracks
+from spotifytool_pkg import cmd_login
+from spotifytool_pkg import cmd_uniq
+from spotifytool_pkg import cmd_write_library
+from spotifytool_pkg import cmd_write_playlist
+
+
+USAGE = '''spotifytool <cmd> [<args>] [--help]'''
+
+BASE_DESCRIPTION = '''Utilities that manage your Spotify account. 
+
+URL: https://github.com/mattduck/spotifytool
+
+Spotifytool is organised into subcommands. Use "<cmd> --help" for help on an
+individual command. Commands are: \n
+'''
+
+COMMANDS = {
+    "weblogin": cmd_login.Login,
+    "backup": cmd_backup.Backup,
+    "uniq": cmd_uniq.Uniq,
+    "write-playlist": cmd_write_playlist.WritePlaylist,
+    "write-library": cmd_write_library.WriteLibrary,
+    "list-tracks": cmd_list_tracks.ListTracks,
+    "list-playlists": cmd_list_playlists.ListPlaylists,
+}
+
+
+def spotifytool():
+    """ Parse sys.argv for arguments and dispatch to the relevant subcommand.
+    """
+    command_descriptions = []
+    for name in sorted(COMMANDS.keys()):
+        cmd = COMMANDS[name]
+        name = name.ljust(15)
+        description = textwrap.fill(cmd.description,
+            subsequent_indent=" "*(20))
+        command_descriptions.append("  %s  %s." % (name, description))
+    full_description = BASE_DESCRIPTION + "\n".join(command_descriptions)
+
+    parser = argparse.ArgumentParser(
+        description=full_description,
+        usage=USAGE,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+
+    parser.add_argument("command", 
+        help=argparse.SUPPRESS,
+        metavar="subcommand",
+        choices=COMMANDS.keys(),
+    )
+
+    first_arg = parser.parse_args(sys.argv[1:2])
+    command = COMMANDS[first_arg.command]()
+    namespace = command.parse_args(sys.argv[2:])
+    command.run(namespace)
+
+
+if __name__ == "__main__":
+    spotifytool()
+    sys.exit()
