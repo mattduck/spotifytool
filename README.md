@@ -13,7 +13,7 @@ For full command help, run `spotifytool --help`, or `spotifytool <command>
 spotifytool backup "$DIRECTORY"
 
 # Parse files for track URIs, and add them to a playlist:
-cat "$FILE" | spotifytool write-playlist "$PLAYLIST_URI"
+cat "$FILE" "$FILE" | spotifytool write-playlist "$PLAYLIST_URI"
 
 # Remove duplicate tracks from given playlists:
 echo "$PLAYLIST_URIS" | spotifytool uniq
