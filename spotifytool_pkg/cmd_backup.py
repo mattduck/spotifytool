@@ -61,7 +61,7 @@ class Backup(command.Command):
             playlists_full_res.append(playlist)
 
         while playlists_result["next"]:
-            playlists_result = sp.get(playlists_result["next"])
+            playlists_result = sp._get(playlists_result["next"])
             for playlist in playlists_result["items"]:
                 playlists_full_res.append(playlist)
 
@@ -76,14 +76,14 @@ class Backup(command.Command):
             # Get all track results from API
             all_tracks = []
             try:
-                tracks_result = sp.get(col_url)
+                tracks_result = sp._get(col_url)
             except spotify_web.SpotifyException:
                 print "  The requested resource could not be found: %s" % col_url
 
             for track in tracks_result["items"]:
                 all_tracks.append(track)
             while tracks_result["next"]:
-                tracks_result = sp.get(tracks_result["next"])
+                tracks_result = sp._get(tracks_result["next"])
                 for track in tracks_result["items"]:
                     all_tracks.append(track)
 

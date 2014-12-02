@@ -51,7 +51,7 @@ class ListPlaylists(command.Command):
                 for playlist in user_playlists["items"]:
                     ALL_PLAYLISTS.append(playlist)
                 while user_playlists["next"]:
-                    user_playlists = sp.get(user_playlists["next"])
+                    user_playlists = sp._get(user_playlists["next"])
                     for playlist in user_playlists["items"]:
                         ALL_PLAYLISTS.append(playlist)
 

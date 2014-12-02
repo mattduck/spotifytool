@@ -1,9 +1,10 @@
+# spotifytool
+
 A CLI that I'm using to manage my Spotify data. It's not polished, but somebody
 might find it useful.
 
 
-Examples
-========
+## Examples
 
 For full command help, run `spotifytool --help`, or `spotifytool <command>
 --help`. Some example / test commands are in `example_script.sh`.
@@ -28,32 +29,26 @@ echo "$USER_URIs" | spotifytool list-tracks --user | spotifytool write-playlist 
 ```
 
 
-Installation
-============
+## Installation
 
-Requires [pyspotify](https://github.com/mopidy/pyspotify) v2.x (Libspotify bindings)
-and [spotipy](https://github.com/plamere/spotipy) (Web API client).
+Requires [spotipy](https://github.com/plamere/spotipy) (Web API client).
 
 `python setup.py install` will install the `spotifytool` script, along with the
 `spotifytool_pkg` Python library.
 
 
-Configuration
-=============
+## Configuration
 
 Some configuration is required - API details, account details. The program
 expects to find a default config file at `~/.spotifytoolconfig`, or for a path to
-the config file to be given with the `--config argument`.
+the config file to be given with the `--config` argument.
 
 The expected config format can be seen in `example_config.ini`.
 
 
-APIs
-====
+## APIs
 
-- Most of the commands use the Spotify Web API, which requires an API key.
+- Spotifytool uses the Spotify Web API, which requires an API key to access user
+  data. This can be requested at [https://developer.spotify.com](https://developer.spotify.com).
 
-- Some commands use Libspotify, which requires an API key and a premium account. 
-
-- API details and keys can be requested at
-  [https://developer.spotify.com](https://developer.spotify.com).
+- I used to use libspotify too, but removed it when the web API had enough features.

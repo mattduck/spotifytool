@@ -1,2 +1,1 @@
-pyspotify==2.0.0b3
 SpotipyWebAPI

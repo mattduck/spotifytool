@@ -68,18 +68,18 @@ class ListTracks(command.Command):
                     playlists_full_res.append(playlist)
 
                 while playlists_result["next"]:
-                    playlists_result = sp.get(playlists_result["next"])
+                    playlists_result = sp._get(playlists_result["next"])
                     for playlist in playlists_result["items"]:
                         playlists_full_res.append(playlist)
 
                 for playlist in playlists_full_res:
 
                     # Get all track results from API
-                    tracks_result = sp.get(playlist["tracks"]["href"])
+                    tracks_result = sp._get(playlist["tracks"]["href"])
                     for track in tracks_result["items"]:
                         ALL_TRACKS.append(track)
                     while tracks_result["next"]:
-                        tracks_result = sp.get(tracks_result["next"])
+                        tracks_result = sp._get(tracks_result["next"])
                         for track in tracks_result["items"]:
                             ALL_TRACKS.append(track)
 
@@ -95,11 +95,11 @@ class ListTracks(command.Command):
                 playlist = sp.user_playlist(user_id, playlist_id)
 
                 # Get all track results from API
-                tracks_result = sp.get(playlist["tracks"]["href"])
+                tracks_result = sp._get(playlist["tracks"]["href"])
                 for track in tracks_result["items"]:
                     ALL_TRACKS.append(track)
                 while tracks_result["next"]:
-                    tracks_result = sp.get(tracks_result["next"])
+                    tracks_result = sp._get(tracks_result["next"])
                     for track in tracks_result["items"]:
                         ALL_TRACKS.append(track)
 
@@ -119,18 +119,18 @@ class ListTracks(command.Command):
                 for album in artist_albums["items"]:
                     all_album_hrefs.append(album["href"])
                 while artist_albums["next"]:
-                    artist_albums = sp.get(artist_albums["next"])
+                    artist_albums = sp._get(artist_albums["next"])
                     for album in artist_albums["items"]:
                         all_album_hrefs.append(album["href"])
 
                 # Get all album tracks
                 for href in all_album_hrefs:
-                    album = sp.get(href)
+                    album = sp._get(href)
                     album_tracks = album["tracks"]
                     for track in album_tracks["items"]:
                         ALL_TRACKS.append(track)
                     while album_tracks["next"]:
-                        album_tracks = sp.get(album_tracks["next"])
+                        album_tracks = sp._get(album_tracks["next"])
                         for track in album_tracks["items"]:
                             ALL_TRACKS.append(track)
 
@@ -145,7 +145,7 @@ class ListTracks(command.Command):
                 for track in album_tracks["items"]:
                     ALL_TRACKS.append(track)
                 while album_tracks["next"]:
-                    album_tracks = sp.get(album_tracks["next"])
+                    album_tracks = sp._get(album_tracks["next"])
                     for track in album_tracks["items"]:
                         ALL_TRACKS.append(track)
 
