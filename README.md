@@ -3,11 +3,34 @@
 A CLI that I'm using to manage my Spotify data. It's not polished, but somebody
 might find it useful.
 
+- Github: [https://github.com/mattduck/spotifytool](https://github.com/mattduck/spotifytool)
 
-## Examples
+## Commands
 
 For full command help, run `spotifytool --help`, or `spotifytool <command>
---help`. Some example / test commands are in `example_script.sh`.
+--help`. 
+
+- __backup__: Backup all Spotify playlists as CSV files.
+
+- __list-playlists__: Parse standard input for Spotify URIs and output all child
+  playlist URIs.
+
+- __list-tracks__: Parse standard input for Spotify URIs and output all child
+  track URIs.
+
+- __uniq__: Parse standard input for Spotify playlist URIs, and remove duplicate
+  tracks from those playlists.
+
+- __weblogin__: Store user login details, to be used by the Spotify web API.
+
+- __write-library__: Parse standard input for Spotify track URIs and add them to
+  your track library.
+
+- __write-playlist__: Parse standard input for Spotify track URIs and add them
+  to a playlist. Playlist must exist.
+
+Some example / test commands are in [example_script.sh](https://github.com/mattduck/spotifytool/blob/master/example_script.sh).
+Quick examples below:
 
 ``` bash
 # Backup your playlists and library as CSV files:
@@ -28,7 +51,6 @@ echo "$ARTIST_URIs" | spotifytool list-tracks --artist | spotifytool write-libra
 echo "$USER_URIs" | spotifytool list-tracks --user | spotifytool write-playlist "$PLAYLIST_URI"
 ```
 
-
 ## Installation
 
 Requires [spotipy](https://github.com/plamere/spotipy) (Web API client).
@@ -43,7 +65,7 @@ Some configuration is required - API details, account details. The program
 expects to find a default config file at `~/.spotifytoolconfig`, or for a path to
 the config file to be given with the `--config` argument.
 
-The expected config format can be seen in `example_config.ini`.
+The expected config format can be seen in [example_config.ini](https://github.com/mattduck/spotifytool/blob/master/example_config.ini).
 
 
 ## APIs
